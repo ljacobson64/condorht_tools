@@ -32,7 +32,7 @@ notification = never
 
 # Request resources
 request_cpus = 12
-request_memory = 2GB
+request_memory = 4GB
 request_disk = 4GB
 
 queue
