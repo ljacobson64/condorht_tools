@@ -37,8 +37,11 @@ function setup_build() {
     $tar_string $dist_dir/$tarball
     ln -s $tar_f src
   elif [ "$1" == "repo" ]; then
-    git clone $repo -b $branch
-    ln -s $name src
+    git clone $repo
+    cd $name
+    git checkout $branch
+    cd ..
+    ln -snf $name src
   fi
   if [ "$2" == "auto" ]; then
     if [ "$1" == "tar" ]; then
@@ -281,7 +284,7 @@ function build_setuptools() {
   folder=$name-$version
   tarball=$name-$version.tar.gz
   tar_f=$name-$version
-  url=https://pypi.python.org/packages/source/s/setuptools/$tarball
+  url=https://pypi.python.org/packages/32/3c/e853a68b703f347f5ed86585c2dd2828a83252e1216c1201fa6f81270578/$tarball
 
   setup_build tar python
 
@@ -301,7 +304,7 @@ function build_cython() {
   folder=$name-$version
   tarball=Cython-$version.tar.gz
   tar_f=Cython-$version
-  url=http://cython.org/release/$tarball
+  url=https://pypi.python.org/packages/c6/fe/97319581905de40f1be7015a0ea1bd336a756f6249914b148a17eefa75dc/$tarball
 
   setup_build tar python
 
@@ -361,7 +364,7 @@ function build_numexpr() {
   folder=$name-$version
   tarball=$name-$version.tar.gz
   tar_f=$name-$version
-  url=https://pypi.python.org/packages/source/n/numexpr/$tarball
+  url=https://pypi.python.org/packages/c6/f0/11628fa4d332d8fe9ab0ba8e9bfe0e065fb6b5324859171ee72d84e079c0/$tarball
 
   setup_build tar python
 
@@ -402,7 +405,7 @@ function build_nose() {
   folder=$name-$version
   tarball=$name-$version.tar.gz
   tar_f=$name-$version
-  url=https://pypi.python.org/packages/source/n/nose/$tarball
+  url=https://pypi.python.org/packages/58/a5/0dc93c3ec33f4e281849523a5a913fa1eea9a3068acfa754d44d88107a44/$tarball
 
   setup_build tar python
 
@@ -438,6 +441,8 @@ function build_cgm() {
   folder=$name-$version
   repo=https://bitbucket.org/fathomteam/$name
   branch=cgm$version
+  if [ "$version" = "12.2" ]; then branch=12.2.1; fi
+  if [ "$version" = "13.1" ]; then branch=13.1.1; fi
 
   setup_build repo auto
 
@@ -464,7 +469,7 @@ function build_moab() {
   version=$moab_version
   folder=$name-$version
   repo=https://bitbucket.org/fathomteam/$name
-  branch=Version$version
+  branch=$version
 
   setup_build repo auto
 

@@ -14,32 +14,32 @@ function set_dirs() {
 
 # Set package versions
 function set_versions() {
-  export        gmp_version=6.1.0
-  export       mpfr_version=3.1.3
+  export        gmp_version=6.1.1
+  export       mpfr_version=3.1.4
   export        mpc_version=1.0.3
-  export        gcc_version=5.3.0
+  export        gcc_version=6.2.0
 
-  export    openmpi_version=1.10.2
-  export      cmake_version=3.4.3
-  export     python_version=2.7.11
+  export    openmpi_version=1.10.3
+  export      cmake_version=3.6.1
+  export     python_version=2.7.12
   export       hdf5_version=1.8.13
-  export     lapack_version=3.6.0
+  export     lapack_version=3.6.1
 
-  export setuptools_version=20.2.2
-  export     cython_version=0.23.4
-  export      numpy_version=1.10.4
+  export setuptools_version=26.1.1
+  export     cython_version=0.24.1
+  export      numpy_version=1.11.1
   export      scipy_version=0.16.1
-  export    numexpr_version=2.5
+  export    numexpr_version=2.6.1
   export   pytables_version=3.2.0
   export       nose_version=1.3.7
 
-  export      cubit_version=12.2
-  export        cgm_version=12.2
-  export       moab_version=4.9.0
+  export      cubit_version=13.1
+  export        cgm_version=13.1
+  export       moab_version=master
   export    meshkit_version=master
   export     pytaps_version=master
 
-  export     geant4_version=10.02
+  export     geant4_version=10.02.p02
   export      fluka_version=2011.2c
 
   export      dagmc_version=dev
