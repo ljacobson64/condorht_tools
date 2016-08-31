@@ -418,51 +418,6 @@ function build_nose() {
   finalize_build
 }
 
-# Build CUBIT
-function build_cubit() {
-  name=cubit
-  version=$cubit_version
-  folder=$name-$version
-  tarball=Cubit_LINUX64.$version.tar.gz
-
-  cd $install_dir
-  ln -snf $folder $name
-  mkdir $folder
-  cd $folder
-  tar -xzvf $dist_dir/$tarball
-
-  finalize_build
-}
-
-# Build CGM
-function build_cgm() {
-  name=cgm
-  version=$cgm_version
-  folder=$name-$version
-  repo=https://bitbucket.org/fathomteam/$name
-  branch=cgm$version
-  if [ "$version" = "12.2" ]; then branch=12.2.1; fi
-  if [ "$version" = "13.1" ]; then branch=13.1.1; fi
-
-  setup_build repo auto
-
-  config_string=
-  config_string+=" "--enable-optimize
-  config_string+=" "--enable-shared
-  config_string+=" "--disable-debug
-  if [[ " ${packages[@]} " =~ " cubit " ]]; then
-    config_string+=" "--with-cubit=$install_dir/cubit
-  fi
-  config_string+=" "--prefix=$install_dir/$folder
-
-  cd bld
-  ../src/configure $config_string
-  make -j $jobs
-  make install
-
-  finalize_build
-}
-
 # Build MOAB
 function build_moab() {
   name=moab
@@ -475,42 +430,10 @@ function build_moab() {
 
   config_string=
   config_string+=" "--enable-dagmc
-  config_string+=" "--enable-fbigeom
   config_string+=" "--enable-optimize
   config_string+=" "--enable-shared
   config_string+=" "--disable-debug
   config_string+=" "--with-hdf5=$install_dir/hdf5
-  if [[ " ${packages[@]} " =~ " cgm " ]]; then
-    config_string+=" "--with-cgm=$install_dir/cgm
-    config_string+=" "--enable-irel
-  fi
-  config_string+=" "--prefix=$install_dir/$folder
-
-  cd bld
-  ../src/configure $config_string
-  make -j $jobs
-  make install
-
-  finalize_build
-}
-
-# Build MeshKit
-function build_meshkit() {
-  name=meshkit
-  version=$meshkit_version
-  folder=$name-$version
-  repo=https://bitbucket.org/fathomteam/$name
-  branch=MeshKitv$version
-  if [ "$version" = "master" ]; then branch=master; fi
-
-  setup_build repo auto
-
-  config_string=
-  config_string+=" "--enable-optimize
-  config_string+=" "--enable-shared
-  config_string+=" "--disable-debug
-  config_string+=" "--with-igeom=$install_dir/cgm
-  config_string+=" "--with-imesh=$install_dir/moab
   config_string+=" "--prefix=$install_dir/$folder
 
   cd bld
@@ -532,9 +455,6 @@ function build_pytaps() {
   setup_build repo python
 
   setup_string=
-  if [[ " ${packages[@]} " =~ " cgm " ]]; then
-    setup_string+=" "--iGeom-path=$install_dir/cgm
-  fi
   setup_string+=" "--iMesh-path=$install_dir/moab
   setup_string_2=
   setup_string_2+=" "--prefix=$install_dir/$folder

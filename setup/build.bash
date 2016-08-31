@@ -45,21 +45,9 @@ function get_dependencies() {
     packages+=(numpy)
     packages+=(moab)
   fi
-  if [[ " ${packages[@]} " =~ " meshkit " ]]; then
-    packages+=(gcc)
-    packages+=(hdf5)
-    packages+=(cgm)
-    packages+=(moab)
-  fi
   if [[ " ${packages[@]} " =~ " moab " ]]; then
     packages+=(gcc)
     packages+=(hdf5)
-  fi
-  if [[ " ${packages[@]} " =~ " cgm " ]]; then
-    packages+=(gcc)
-  fi
-  if [[ " ${packages[@]} " =~ " cubit " ]]; then
-    : # no dependencies
   fi
   if [[ " ${packages[@]} " =~ " nose " ]]; then
     packages+=(gcc)
@@ -129,7 +117,7 @@ function get_dependencies() {
   # Put the dependencies in the correct build order
   all_packages=" gmp mpfr mpc gcc openmpi cmake python hdf5 lapack
                  setuptools cython numpy scipy numexpr pytables nose
-                 cubit cgm moab meshkit pytaps mcnp5 geant4 fluka dagmc pyne "
+                 moab pytaps mcnp5 geant4 fluka dagmc pyne "
   packages_ordered=()
   for package in $all_packages; do
     if [[ " ${packages[@]} " =~ " ${package} " ]]; then

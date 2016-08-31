@@ -33,10 +33,7 @@ function set_versions() {
   export   pytables_version=3.2.0
   export       nose_version=1.3.7
 
-  export      cubit_version=13.1
-  export        cgm_version=13.1
   export       moab_version=master
-  export    meshkit_version=master
   export     pytaps_version=master
 
   export     geant4_version=10.02.p02
@@ -107,20 +104,9 @@ function set_env() {
   export PATH=$install_dir/nose/bin:$PATH
   export PYTHONPATH=$install_dir/nose/lib/python2.7/site-packages:$PYTHONPATH
 
-  # CUBIT
-  export PATH=$install_dir/cubit/bin:$PATH
-  export LD_LIBRARY_PATH=$install_dir/cubit/bin:$LD_LIBRARY_PATH
-
-  # CGM
-  export LD_LIBRARY_PATH=$install_dir/cgm/lib:$LD_LIBRARY_PATH
-
   # MOAB
   export PATH=$install_dir/moab/bin:$PATH
   export LD_LIBRARY_PATH=$install_dir/moab/lib:$LD_LIBRARY_PATH
-
-  # MeshKit
-  export PATH=$install_dir/meshkit/bin:$PATH
-  export LD_LIBRARY_PATH=$install_dir/meshkit/lib:$LD_LIBRARY_PATH
 
   # PyTAPS
   export PATH=$install_dir/pytaps/bin:$PATH
