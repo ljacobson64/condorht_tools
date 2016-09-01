@@ -192,7 +192,7 @@ function build_cmake() {
   folder=$name-$version
   tarball=$name-$version.tar.gz
   tar_f=$name-$version
-  url=http://www.cmake.org/files/v3.4/$tarball
+  url=http://www.cmake.org/files/v${version:0:3}/$tarball
 
   setup_build tar
 
@@ -524,15 +524,14 @@ function build_dagmc() {
   folder=$name-$version
   repo=https://github.com/svalinn/$name
   branch=develop
-  mcnp5_tarball=mcnp5_dist.tgz
+  mcnp5_tarball=mcnp5.1.60_source.tar.gz
 
   setup_build repo
 
   if [[ " ${packages[@]} " =~ " mcnp5 " ]]; then
-    cd $name/mcnp5
-    tar -xzvf $dist_dir/$mcnp5_tarball Source
-    cd Source
-    patch -p2 < ../patch/dagmc.patch.5.1.60
+    cd $name/mcnp/mcnp5
+    tar -xzvf $dist_dir/$mcnp5_tarball --strip-components=1
+    patch -p0 < patch/dagmc.patch.5.1.60
     cd ../../..
   fi
   if [[ " ${packages[@]} " =~ " fluka " ]]; then
@@ -552,7 +551,6 @@ function build_dagmc() {
   if [[ " ${packages[@]} " =~ " geant4 " ]]; then
     cmake_string+=" "-DBUILD_GEANT4=ON
     cmake_string+=" "-DGEANT4_DIR=$install_dir/geant4
-    cmake_string+=" "-DGEANT4_CMAKE_CONFIG:PATH=$install_dir/geant4/lib64/Geant4-10.2.0
   fi
   if [[ " ${packages[@]} " =~ " fluka " ]]; then
     cmake_string+=" "-DBUILD_FLUKA=ON
@@ -587,11 +585,11 @@ function build_pyne() {
   setup_string+=" "-DCMAKE_CXX_COMPILER=$install_dir/gcc/bin/g++
   setup_string+=" "-DCMAKE_Fortran_COMPILER=$install_dir/gcc/bin/gfortran
   setup_string_2=
-  #setup_string_2+=" "--bootstrap
   setup_string_2+=" "--prefix=$install_dir/$folder
 
   cd $name
   python setup.py $setup_string install $setup_string_2 -j $jobs
+  cd ..
   nuc_data_make
 
   finalize_build

@@ -4,8 +4,8 @@
 function set_dirs() {
   export    orig_dir=$PWD
   export    test_dir=$orig_dir                       # Location to perform DAGMC tests
-  export   build_dir=/tmp/$USER/build                # Location to perform the build
-  export install_dir=/tmp/$USER/opt                  # Location to install binaries, libraries, etc.
+  export   build_dir=$orig_dir/build                 # Location to perform the build
+  export install_dir=$orig_dir/opt                   # Location to install binaries, libraries, etc.
   export    dist_dir=/mnt/gluster/$USER/dist         # Location where tarballs can be found
   export    copy_dir=/mnt/gluster/$USER/tar_install  # Location to place output tarballs
   export    DATAPATH=/mnt/gluster/$USER/mcnp_data    # Location of MCNP data
