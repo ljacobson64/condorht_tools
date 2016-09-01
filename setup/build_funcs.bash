@@ -254,29 +254,6 @@ function build_hdf5() {
   finalize_build
 }
 
-# Build LAPACK
-function build_lapack() {
-  name=lapack
-  version=$lapack_version
-  folder=$name-$version
-  tarball=$name-$version.tgz
-  tar_f=$name-$version
-  url=http://www.netlib.org/lapack/$tarball
-
-  setup_build tar
-
-  cmake_string=
-  cmake_string+=" "-DCMAKE_Fortran_COMPILER=$install_dir/gcc/bin/gfortran
-  cmake_string+=" "-DCMAKE_INSTALL_PREFIX=$install_dir/$folder
-
-  cd bld
-  cmake ../src $cmake_string
-  make -j $jobs
-  make install
-
-  finalize_build
-}
-
 # Build Setuptools
 function build_setuptools() {
   name=setuptools

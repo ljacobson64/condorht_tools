@@ -23,7 +23,6 @@ function set_versions() {
   export      cmake_version=3.6.1
   export     python_version=2.7.12
   export       hdf5_version=1.8.13
-  export     lapack_version=3.6.1
 
   export setuptools_version=26.1.1
   export     cython_version=0.24.1
@@ -74,9 +73,6 @@ function set_env() {
   # HDF5
   export PATH=$install_dir/hdf5/bin:$PATH
   export LD_LIBRARY_PATH=$install_dir/hdf5/lib:$LD_LIBRARY_PATH
-
-  # LAPACK
-  export LD_LIBRARY_PATH=$install_dir/lapack/lib:$LD_LIBRARY_PATH
 
   # Setuptools
   export PATH=$install_dir/setuptools/bin:$PATH

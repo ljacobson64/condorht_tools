@@ -11,7 +11,6 @@ function get_dependencies() {
     packages+=(cmake)
     packages+=(python)
     packages+=(hdf5)
-    packages+=(lapack)
     packages+=(setuptools)
     packages+=(cython)
     packages+=(numpy)
@@ -41,7 +40,6 @@ function get_dependencies() {
     packages+=(gcc)
     packages+=(python)
     packages+=(hdf5)
-    packages+=(lapack)
     packages+=(numpy)
     packages+=(moab)
   fi
@@ -57,7 +55,6 @@ function get_dependencies() {
     packages+=(gcc)
     packages+=(python)
     packages+=(hdf5)
-    packages+=(lapack)
     packages+=(setuptools)
     packages+=(cython)
     packages+=(numpy)
@@ -71,14 +68,12 @@ function get_dependencies() {
   if [[ " ${packages[@]} " =~ " scipy " ]]; then
     packages+=(gcc)
     packages+=(python)
-    packages+=(lapack)
     packages+=(cython)
     packages+=(numpy)
   fi
   if [[ " ${packages[@]} " =~ " numpy " ]]; then
     packages+=(gcc)
     packages+=(python)
-    packages+=(lapack)
     packages+=(cython)
   fi
   if [[ " ${packages[@]} " =~ " cython " ]]; then
@@ -115,7 +110,7 @@ function get_dependencies() {
   fi
 
   # Put the dependencies in the correct build order
-  all_packages=" gmp mpfr mpc gcc openmpi cmake python hdf5 lapack
+  all_packages=" gmp mpfr mpc gcc openmpi cmake python hdf5
                  setuptools cython numpy scipy numexpr pytables nose
                  moab pytaps mcnp5 geant4 fluka dagmc pyne "
   packages_ordered=()

@@ -31,27 +31,26 @@ The build script contains instructions for compiling the following packages. The
 6. CMake 3.6.1
 7. Python 2.7.12
 8. HDF5 1.8.13
-9. LAPACK 3.6.1
-10. Setuptools 26.1.1
-11. Cython 0.24.1
-12. NumPy 1.11.1
-13. SciPy 0.16.1
-14. NumExpr 2.6.1
-15. PyTables 3.2.0
-16. Nose 1.3.7
-17. MOAB master
-18. PyTAPS master
-19. MCNP5 1.60
+9. Setuptools 26.1.1
+10. Cython 0.24.1
+11. NumPy 1.11.1
+12. SciPy 0.16.1
+13. NumExpr 2.6.1
+14. PyTables 3.2.0
+15. Nose 1.3.7
+16. MOAB master
+17. PyTAPS master
+18. MCNP5 1.60
   * must have `mcnp5_dist.tgz` in Gluster
-20. Geant4 10.02.p02
-21. FLUKA 2011.2c
+19. Geant4 10.02.p02
+20. FLUKA 2011.2c
   * must have `fluka2011.2c-linux-gfor64bitAA.tar.gz` or variant in Gluster
-22. DAGMC dev
+21. DAGMC dev
   * specify `mcnp5` to build DAG-MCNP5
   * specify `mcnp5` and `openmpi` to build an MPI version of DAG-MCNP5
   * specify `geant4` to build DAG-Geant4
   * specify `fluka` to build FluDAG
-23. PyNE dev
+22. PyNE dev
 
 Submit the submit file with `$ condor_submit build.sub`. This will build the packages and place tarballs containing the output binaries, libraries, headers, and other files for each package in `/mnt/gluster/$USER/tar_install`.
 
