@@ -401,7 +401,7 @@ function build_moab() {
   version=$moab_version
   folder=$name-$version
   repo=https://bitbucket.org/fathomteam/$name
-  branch=$version
+  branch=Version$version
 
   setup_build repo auto
 

@@ -32,7 +32,7 @@ function set_versions() {
   export   pytables_version=3.2.0
   export       nose_version=1.3.7
 
-  export       moab_version=master
+  export       moab_version=4.9.2
   export     pytaps_version=master
 
   export     geant4_version=10.02.p02
