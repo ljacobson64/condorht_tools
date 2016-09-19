@@ -102,6 +102,7 @@ function build_gcc() {
   cd ..
 
   config_string=
+  config_string+=" "--enable-languages=c,c++,fortran
   config_string+=" "--prefix=$install_dir/$folder
 
   cd bld
