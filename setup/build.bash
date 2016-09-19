@@ -97,20 +97,11 @@ function get_dependencies() {
     packages+=(gcc)
   fi
   if [[ " ${packages[@]} " =~ " gcc " ]]; then
-    packages+=(mpc)
-  fi
-  if [[ " ${packages[@]} " =~ " mpc " ]]; then
-    packages+=(mpfr)
-  fi
-  if [[ " ${packages[@]} " =~ " mpfr " ]]; then
-    packages+=(gmp)
-  fi
-  if [[ " ${packages[@]} " =~ " gmp " ]]; then
     : # no dependencies
   fi
 
   # Put the dependencies in the correct build order
-  all_packages=" gmp mpfr mpc gcc openmpi cmake python hdf5
+  all_packages=" gcc openmpi cmake python hdf5
                  setuptools cython numpy scipy numexpr pytables nose
                  moab pytaps mcnp5 geant4 fluka dagmc pyne "
   packages_ordered=()

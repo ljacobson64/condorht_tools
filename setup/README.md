@@ -23,40 +23,37 @@ The script `common.bash` contains the directory structure for the build as well 
 
 The build script contains instructions for compiling the following packages. The default versions are listed.
 
-1. GMP 6.1.1
-2. MPFR 3.1.4
-3. MPC 1.0.3
-4. GCC 6.2.0
-5. OpenMPI 1.10.3
-6. CMake 3.6.1
-7. Python 2.7.12
-8. HDF5 1.8.13
-9. Setuptools 26.1.1
-10. Cython 0.24.1
-11. NumPy 1.11.1
-12. SciPy 0.16.1
-13. NumExpr 2.6.1
-14. PyTables 3.2.0
-15. Nose 1.3.7
-16. MOAB master
-17. PyTAPS master
-18. MCNP5 1.60
-  * must have `mcnp5_dist.tgz` in Gluster
-19. Geant4 10.02.p02
-20. FLUKA 2011.2c
+1. GCC 6.2.0
+2. OpenMPI 1.10.3
+3. CMake 3.6.1
+4. Python 2.7.12
+5. HDF5 1.8.13
+6. Setuptools 26.1.1
+7. Cython 0.24.1
+8. NumPy 1.11.1
+9. SciPy 0.16.1
+10. NumExpr 2.6.1
+11. PyTables 3.2.0
+12. Nose 1.3.7
+13. MOAB master
+14. PyTAPS master
+15. MCNP5 1.60
+  * must have `mcnp5.1.60_source.tar.gz` in Gluster
+16. Geant4 10.02.p02
+17. FLUKA 2011.2c
   * must have `fluka2011.2c-linux-gfor64bitAA.tar.gz` or variant in Gluster
-21. DAGMC dev
+18. DAGMC dev
   * specify `mcnp5` to build DAG-MCNP5
   * specify `mcnp5` and `openmpi` to build an MPI version of DAG-MCNP5
   * specify `geant4` to build DAG-Geant4
   * specify `fluka` to build FluDAG
-22. PyNE dev
+19. PyNE dev
 
 Submit the submit file with `$ condor_submit build.sub`. This will build the packages and place tarballs containing the output binaries, libraries, headers, and other files for each package in `/mnt/gluster/$USER/tar_install`.
 
 2. Run the DAGMC tests
 ----------------------------------------
-The submit file `dagmc_tests.sub` launches a job which copies the script `dagmc_tests.bash` to an execute node. The script runs the DAG-MCNP5 and FluDAG tests in the <a href="https://github.com/ljacobson64/DAGMC-tests" target="_blank">DAGMC test suite</a>. The script will look for GMP, MPFR, MPC, GCC, OpenMPI, CMake, and HDF5 as they would have been built by `build.bash`, and if they cannot be found, the will be built. MOAB, DAG-MCNP5, and FluDAG will be re-built every time the tests are run.
+The submit file `dagmc_tests.sub` launches a job which copies the script `dagmc_tests.bash` to an execute node. The script runs the DAG-MCNP5 and FluDAG tests in the <a href="https://github.com/ljacobson64/DAGMC-tests" target="_blank">DAGMC test suite</a>. The script will look for GCC, OpenMPI, CMake, and HDF5 as they would have been built by `build.bash`, and if they cannot be found, the will be built. MOAB, DAG-MCNP5, and FluDAG will be re-built every time the tests are run.
 
 You must have the MCNP data tarball `mcnp_data.tar.gz` in your Gluster space in order to be able to run the tests.
 

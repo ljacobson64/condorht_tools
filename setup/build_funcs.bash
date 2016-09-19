@@ -69,75 +69,6 @@ function finalize_build() {
   cd $build_dir
 }
 
-# Build GMP
-function build_gmp() {
-  name=gmp
-  version=$gmp_version
-  folder=$name-$version
-  tarball=$name-$version.tar.bz2
-  tar_f=$name-$version
-  url=https://gmplib.org/download/gmp/$tarball
-
-  setup_build tar
-
-  config_string=
-  config_string+=" "--prefix=$install_dir/$folder
-
-  cd bld
-  ../src/configure $config_string
-  make -j $jobs
-  make install
-
-  finalize_build
-}
-
-# Build MPFR
-function build_mpfr() {
-  name=mpfr
-  version=$mpfr_version
-  folder=$name-$version
-  tarball=$name-$version.tar.gz
-  tar_f=$name-$version
-  url=http://www.mpfr.org/mpfr-current/$tarball
-
-  setup_build tar
-
-  config_string=
-  config_string+=" "--with-gmp=$install_dir/gmp
-  config_string+=" "--prefix=$install_dir/$folder
-
-  cd bld
-  ../src/configure $config_string
-  make -j $jobs
-  make install
-
-  finalize_build
-}
-
-# Build MPC
-function build_mpc() {
-  name=mpc
-  version=$mpc_version
-  folder=$name-$version
-  tarball=$name-$version.tar.gz
-  tar_f=$name-$version
-  url=ftp://ftp.gnu.org/gnu/mpc/$tarball
-
-  setup_build tar
-
-  config_string=
-  config_string+=" "--with-gmp=$install_dir/gmp
-  config_string+=" "--with-mpfr=$install_dir/mpfr
-  config_string+=" "--prefix=$install_dir/$folder
-
-  cd bld
-  ../src/configure $config_string
-  make -j $jobs
-  make install
-
-  finalize_build
-}
-
 # Build GCC
 function build_gcc() {
   name=gcc
@@ -149,10 +80,28 @@ function build_gcc() {
 
   setup_build tar
 
+  cd $tar_f
+  gmp_tar=gmp-$gmp_version.tar.bz2
+  if [ ! -f $dist_dir/$gmp_tar ]; then
+    wget https://gmplib.org/download/gmp/$gmp_tar -P $dist_dir
+  fi
+  mpfr_tar=mpfr-$mpfr_version.tar.gz
+  if [ ! -f $dist_dir/$mpfr_tar ]; then
+    wget http://www.mpfr.org/mpfr-current/$mpfr_tar -P $dist_dir
+  fi
+  mpc_tar=mpc-$mpc_version.tar.gz
+  if [ ! -f $dist_dir/$mpc_tar ]; then
+    wget ftp://ftp.gnu.org/gnu/mpc/$mpc_tar -P $dist_dir
+  fi
+  tar -xjvf $dist_dir/$gmp_tar
+  tar -xzvf $dist_dir/$mpfr_tar
+  tar -xzvf $dist_dir/$mpc_tar
+  ln -snf gmp-$gmp_version gmp
+  ln -snf mpfr-$mpfr_version mpfr
+  ln -snf mpc-$mpc_version mpc
+  cd ..
+
   config_string=
-  config_string+=" "--with-gmp=$install_dir/gmp
-  config_string+=" "--with-mpfr=$install_dir/mpfr
-  config_string+=" "--with-mpc=$install_dir/mpc
   config_string+=" "--prefix=$install_dir/$folder
 
   cd bld

@@ -44,15 +44,6 @@ function set_versions() {
 
 # Set environment variables
 function set_env() {
-  # GMP
-  export LD_LIBRARY_PATH=$install_dir/gmp/lib:$LD_LIBRARY_PATH
-
-  # MPFR
-  export LD_LIBRARY_PATH=$install_dir/mpfr/lib:$LD_LIBRARY_PATH
-
-  # MPC
-  export LD_LIBRARY_PATH=$install_dir/mpc/lib:$LD_LIBRARY_PATH
-
   # GCC
   export PATH=$install_dir/gcc/bin:$PATH
   export LD_LIBRARY_PATH=$install_dir/gcc/lib:$LD_LIBRARY_PATH
