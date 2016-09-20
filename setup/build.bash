@@ -129,7 +129,7 @@ set_dirs
 set_versions
 set_env
 export make_install_tarballs=true
-export jobs=8
+export jobs=12
 
 # Figure out which packages need to be built
 get_dependencies

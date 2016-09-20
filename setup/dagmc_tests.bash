@@ -52,7 +52,7 @@ set_dirs
 set_versions
 set_env
 export make_install_tarballs=false
-export jobs=8
+export jobs=12
 
 # Cleanup directories
 rm -rf $build_dir $install_dir
