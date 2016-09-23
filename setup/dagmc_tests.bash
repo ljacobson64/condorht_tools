@@ -12,18 +12,18 @@ function get_xs_data() {
 # Run the DAGMC tests
 function dagmc_tests() {
   cd $test_dir
-  git clone https://github.com/ljacobson64/DAGMC-tests
-  cd DAGMC-tests/DAG-MCNP5
-  bash get_files.bash no_sat
-  cd ../FluDAG
-  bash get_files.bash
-  bash run_all_smart.bash
-  cd ../DAG-MCNP5
-  bash run_all_smart.bash
+  git clone https://github.com/ljacobson64/DAGMC-tests -b dag_mcnp6_new
+  cd DAGMC-tests
+  bash get_files.bash mcnp5
+  cd mcnp5
+  suites="VALIDATION_SHIELDING VALIDATION_CRITICALITY
+          Meshtally DAGMC Regression"  # VERIFICATION_KEFF
+  python run_multiple.py $suites -s
+  python run_multiple.py $suites -r -j $jobs
   cd ..
   python write_summaries.py
-  export datetime=`(cd summaries; ls summary_DAG-MCNP5_*.txt) | head -1`
-  export datetime=${datetime#$"summary_DAG-MCNP5_"}
+  export datetime=`(cd summaries; ls summary_mcnp5_*.txt) | head -1`
+  export datetime=${datetime#$"summary_mcnp5_"}
   export datetime=${datetime%$".txt"}
 }
 
@@ -59,7 +59,7 @@ rm -rf $build_dir $install_dir
 mkdir -p $dist_dir $build_dir $install_dir $copy_dir $DATAPATH
 
 # Make sure all the dependencies are built
-packages=(gmp mpfr mpc gcc openmpi cmake hdf5 fluka)
+packages=(gcc openmpi cmake hdf5 moab fluka)
 for name in "${packages[@]}"; do
   eval version=\$"$name"_version
   echo Ensuring build of $name-$version ...
@@ -67,12 +67,11 @@ for name in "${packages[@]}"; do
 done
 
 # Re-build DAGMC
-packages=(openmpi moab mcnp5 fluka dagmc)
-for name in "${packages[@]:1}"; do
-  eval version=\$"$name"_version
-  echo Building $name-$version ...
-  build_$name
-done
+packages=(openmpi mcnp5 fluka dagmc)
+name=dagmc
+version=$dagmc_version
+echo Building $name-$version ...
+build_$name
 
 get_xs_data
 dagmc_tests
