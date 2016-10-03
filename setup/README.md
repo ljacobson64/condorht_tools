@@ -17,7 +17,7 @@ The `arguments =` line in `build.bash` should be edited to indicate which packag
 
 The presence of some of the arguments will affect the build of others. For example, if `openmpi`, `mcnp5`, and `dagmc` are selected, then OpenMPI and an MPI version of DAG-MCNP5 will be built. The default arguments (`openmpi mcnp5 geant4 fluka dagmc pyne`) will result in building the entire stack.
 
-If you are installing FLUKA or MCNP5, you are required to place their tarballs in your Gluster space (`/mnt/gluster/$USER/dist`) before installation. The scripts will also look for the tarballs for the other software in your Gluster space, but if they can't be found, the scripts will download them from the internet and place them in your Gluster space.
+If you are installing FLUKA or MCNP5, you are required to place their tarballs in your Gluster space (`/mnt/gluster/$USER/dist/`) before installation. The scripts will also look for the tarballs for the other software in your Gluster space, but if they can't be found, the scripts will download them from the internet and place them in your Gluster space.
 
 The script `common.bash` contains the directory structure for the build as well as the the version numbers for all the packages. You may edit these variables if you so choose.
 
@@ -53,8 +53,8 @@ Submit the submit file with `$ condor_submit build.sub`. This will build the pac
 
 2. Run the DAGMC tests
 ----------------------------------------
-The submit file `dagmc_tests.sub` launches a job which copies the script `dagmc_tests.bash` to an execute node. The script runs the DAG-MCNP5 and FluDAG tests in the <a href="https://github.com/ljacobson64/DAGMC-tests" target="_blank">DAGMC test suite</a>. The script will look for GCC, OpenMPI, CMake, and HDF5 as they would have been built by `build.bash`, and if they cannot be found, the will be built. MOAB, DAG-MCNP5, and FluDAG will be re-built every time the tests are run.
+The submit file `dagmc_tests.sub` launches a job which copies the script `dagmc_tests.bash` to an execute node. The script runs the DAG-MCNP5 and FluDAG tests in the <a href="https://github.com/ljacobson64/DAGMC-tests" target="_blank">DAGMC test suite</a>. The script will look for GCC, OpenMPI, CMake, HDF5, and MOAB as they would have been built by `build.bash`, and if they cannot be found, the will be built. DAG-MCNP5 and FluDAG will be re-built every time the tests are run.
 
-You must have the MCNP data tarball `mcnp_data.tar.gz` in your Gluster space in order to be able to run the tests.
+You must either have the MCNP data tarball `mcnp_data.tar.gz` in your Gluster space or already have the data unpacked in `/mnt/gluster/$USER/mcnp_data/` in order to be able to run the tests.
 
-When the tests have finished, a tarball containing the results will be created and placed in `/mnt/gluster/$USER/results`. The tarball filename will contain the date and time the tests were completed.
+When the tests have finished, a tarball containing the results will be created and placed in `/mnt/gluster/$USER/results/`. The tarball filename will contain the date and time the tests were completed.
